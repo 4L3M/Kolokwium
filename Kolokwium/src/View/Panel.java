@@ -1,5 +1,6 @@
 package View;
 
+import Model.Direction;
 import Model.RectCoordinate;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class Panel extends JPanel{
     Graphics2D buffer;
     private BufferedImage bufferedImage;
     boolean draw = false;
+    Direction direction = Direction.DOWN;
     public Panel () {
     createPanel();
         setLayout(null);
@@ -26,6 +28,7 @@ public class Panel extends JPanel{
         setBackground(Color.WHITE);
         bufferedImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
         buffer = bufferedImage.createGraphics();
+        addListener();
     }
 
     public void createPanel() {
@@ -55,7 +58,7 @@ public class Panel extends JPanel{
         g2d.setColor(Color.black);
 
         for (RectCoordinate rectCoordinate : rectCoordinates) {
-            g2d.drawRect(rectCoordinate.getX1(), rectCoordinate.getY1(), rectCoordinate.getX2() - rectCoordinate.getX1(), rectCoordinate.getY2() - rectCoordinate.getY1());
+            g2d.drawRect(rectCoordinate.x1, rectCoordinate.y1, rectCoordinate.x2 - rectCoordinate.x1, rectCoordinate.y2 - rectCoordinate.y1);
         }
     }
 
@@ -85,6 +88,12 @@ public class Panel extends JPanel{
                         yClick1 = yClick2;
                         yClick2 = swap;
                     }
+                    RectCoordinate newRect = new RectCoordinate(xClick1, yClick1, xClick2, yClick2, Direction.DOWN);
+                    newRect.start();
+                    rectCoordinates.add(newRect);
+
+
+                    //rectCoordinates.add(new RectCoordinate(xClick1,yClick1,xClick2,yClick2));
                 }
             }
         });

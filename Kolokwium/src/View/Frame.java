@@ -1,7 +1,11 @@
 package View;
 
+import Model.Direction;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
     Panel panel = new Panel();
@@ -23,13 +27,53 @@ public class Frame extends JFrame {
         addButtons();
     }
 
-    public void addButtons(){
+    public void addButtons() {
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(up);
-        buttonPanel.add(down);
-        buttonPanel.add(left);
-        buttonPanel.add(right);
-        add(buttonPanel,BorderLayout.SOUTH);
+        JButton lewo = new JButton("LEFT");
+        JButton prawo = new JButton("RIGTH");
+        JButton gora = new JButton("UP");
+        JButton dol = new JButton("DOWN");
+        buttonPanel.add(lewo);
+        buttonPanel.add(prawo);
+        buttonPanel.add(gora);
+        buttonPanel.add(dol);
+        lewo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.direction=Direction.LEFT;
+                for(int i=0;i<panel.rectCoordinates.size();i++){
+                    panel.rectCoordinates.get(i).setDirection(Direction.LEFT);
+                }
+            }
+        });
+        prawo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.direction = Direction.RIGHT;
+                for(int i=0;i<panel.rectCoordinates.size();i++){
+                    panel.rectCoordinates.get(i).setDirection(Direction.RIGHT);
+                }
+            }
+        });
+        gora.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.direction=Direction.UP;
+                for(int i=0;i<panel.rectCoordinates.size();i++){
+                    panel.rectCoordinates.get(i).setDirection(Direction.UP);
+                }
+            }
+        });
+        dol.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.direction=Direction.DOWN;
+                for(int i=0;i<panel.rectCoordinates.size();i++){
+                    panel.rectCoordinates.get(i).setDirection(Direction.DOWN);
+                }
+            }
+        });
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
 public static void main (String[] args) {
